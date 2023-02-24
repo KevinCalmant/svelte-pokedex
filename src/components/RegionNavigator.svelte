@@ -3,9 +3,9 @@
   import {selectedRegion} from "../store/region.store";
   import type {Region} from "../types/region";
 
-  let regions = regionData;
+  let regions = Object.keys(regionData);
 
-  export const handleRegionClick = (region: Region) => {
+  const handleRegionClick = (region: Region) => {
     selectedRegion.set(region);
   }
 </script>
@@ -13,10 +13,11 @@
 <div class="flex flex-row justify-center">
     <nav class="w-6/12 rounded-2xl flex flex-col justify-center font-medium">
         <ul class="flex flex-row justify-around p-4 font-extrabold">
-            {#each Object.entries(regions) as [regionName, info]}
-                <li class="mb-0.5 hover:border-b-2 cursor-pointer" class:border-b-2={$selectedRegion === regionName}
-                    on:click={() => handleRegionClick(regionName)}>
-                    {regionName}
+            {#each regions as region}
+                <li class="mb-0.5 hover:border-b-2 cursor-pointer"
+                    class:border-b-2={$selectedRegion === region}
+                    on:click={() => handleRegionClick(region)}>
+                    {region}
                 </li>
             {/each}
         </ul>
